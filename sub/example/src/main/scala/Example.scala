@@ -35,6 +35,6 @@ object Example {
 				),
 				" in it.",
 				Vector[raw.Node](" ", "and", " ", "a", " ", "sequence of nodes", a()),
-				fragment(" ", "and", " ", "a", " ", "sequence of nodes", a())
+				fragment(" ", "and", " ", "another", " ", "sequence of nodes", a())
 			)
 }
