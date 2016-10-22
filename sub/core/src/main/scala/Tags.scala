@@ -1,4 +1,4 @@
-package sjsdom
+package sjs.dom.builder
 
 import org.scalajs.dom.raw
 

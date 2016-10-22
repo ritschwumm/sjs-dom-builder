@@ -1,4 +1,4 @@
-package sjsdom
+package sjs.dom.builder
 
 import scala.language.dynamics
 import scala.language.experimental.macros

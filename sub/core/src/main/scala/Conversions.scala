@@ -1,4 +1,4 @@
-package sjsdom
+package sjs.dom.builder
 
 import scala.language.implicitConversions
 import scala.collection.immutable.{ Seq => ISeq }

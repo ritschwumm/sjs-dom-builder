@@ -1,6 +1,6 @@
 inThisBuild(Seq(
 	organization	:= "de.djini",
-	version			:= "0.0.1-SNAPSHOT",
+	version			:= "0.0.1",
 	
 	scalaVersion	:= "2.11.8",
 	scalacOptions	++= Seq(
@@ -9,15 +9,16 @@ inThisBuild(Seq(
 		"-unchecked",
 		"-Ywarn-unused-import",
 		"-Xfatal-warnings"
+		// "-Ymacro-debug-lite"
 	)
 ))
 
-lazy val `sjsdom` =
+lazy val `sjs-dom-builder` =
 	(project in file("."))
 	.aggregate(
-		`sjsdom-macros`,
-		`sjsdom-core`,
-		`sjsdom-example`
+		`sjs-dom-builder-macros`,
+		`sjs-dom-builder-core`,
+		`sjs-dom-builder-example`
 	)
 	.settings(
 		publishArtifact := false
@@ -25,7 +26,7 @@ lazy val `sjsdom` =
 		//publishLocal	:= {}
 	)
 	
-lazy val `sjsdom-macros`	=
+lazy val `sjs-dom-builder-macros`	=
 		(project in file("sub/macros"))
 		.enablePlugins(
 			ScalaJSPlugin
@@ -38,27 +39,27 @@ lazy val `sjsdom-macros`	=
 			)
 		)
 		
-lazy val `sjsdom-core`	=
+lazy val `sjs-dom-builder-core`	=
 		(project in file("sub/core"))
 		.enablePlugins(
 			ScalaJSPlugin
 		)
 		.dependsOn(
-			`sjsdom-macros`
+			`sjs-dom-builder-macros`
 		)
 		.settings()
 		
-lazy val `sjsdom-example`	=
+lazy val `sjs-dom-builder-example`	=
 		(project in file("sub/example"))
 		.enablePlugins(
 			ScalaJSPlugin
 		)
 		.dependsOn(
-			`sjsdom-core`
+			`sjs-dom-builder-core`
 		)
 		.settings()
 		
 TaskKey[Seq[File]]("bundle")	:=
 		Vector(
-			(fastOptJS	in (`sjsdom-example`, Compile)).value.data
+			(fastOptJS	in (`sjs-dom-builder-example`, Compile)).value.data
 		)

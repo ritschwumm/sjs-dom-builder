@@ -1,11 +1,11 @@
-package sjsdom
+package sjs.dom.builder
 
 import scala.scalajs.js.annotation.JSExport
 
 import org.scalajs.dom
 import org.scalajs.dom.raw
 
-import sjsdom.syntax._
+import sjs.dom.builder.syntax._
 
 @JSExport
 object Example {
