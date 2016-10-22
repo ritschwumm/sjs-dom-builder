@@ -24,7 +24,7 @@ final class BuilderMacros(val c:Context) {
 		if (methodName != "apply")	c.abort(c.enclosingPosition, s"unhandled applyDynamic call to Builder member '${methodName}'")
 		
 		val modifications	= args.toList map { arg =>
-			q"el.appendChild($arg)"
+			q"el.appendChild(_root_.sjs.dom.builder.Fraggable.asNode($arg))"
 		}	
 		
 		q"""{
@@ -49,7 +49,7 @@ final class BuilderMacros(val c:Context) {
 				q"el.$fieldName = $av"
 			}
 			else {
-				q"el.appendChild($av)"
+				q"el.appendChild(_root_.sjs.dom.builder.Fraggable.asNode($av))"
 			}
 		}
 		

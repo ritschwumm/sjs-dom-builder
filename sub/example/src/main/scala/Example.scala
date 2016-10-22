@@ -35,7 +35,7 @@ object Example {
 					"link"
 				),
 				" in it.",
-				Vector[Node](" ", "and", " ", "a", " ", "sequence of nodes", a()),
-				fragment(" ", "and", " ", "another", " ", "sequence of nodes", a())
+				Vector(" ", "and", " ", "a", " ", "sequence of nodes"),
+				a()
 			)
 }
