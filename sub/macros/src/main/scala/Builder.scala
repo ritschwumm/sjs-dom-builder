@@ -16,6 +16,8 @@ final class BuilderMacros(val c:Context) {
 	import c.universe._
 	
 	def applyDynamic[T](name:c.Tree)(args:Tree*)(implicit targetTypeTag:c.WeakTypeTag[T]):c.Tree	= {
+		// TODO use something like this to get at the variable name
+		// c.asInstanceOf[reflect.macros.runtime.Context].callsiteTyper.context.enclosingContextChain.map(_.tree.asInstanceOf[c.Tree])
 		val Select(_, TermName(elementName))	= c.prefix.tree
 		
 		val Literal(Constant(methodName:String))	= name

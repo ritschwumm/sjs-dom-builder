@@ -2,8 +2,9 @@ package sjs.dom.builder
 
 import scala.scalajs.js.annotation.JSExport
 
-import org.scalajs.dom
-import org.scalajs.dom.raw
+import org.scalajs.dom.document
+import org.scalajs.dom.window
+import org.scalajs.dom.raw._
 
 import sjs.dom.builder.syntax._
 
@@ -11,10 +12,10 @@ import sjs.dom.builder.syntax._
 object Example {
 	@JSExport
 	def main() {
-		dom.window.onload	= (_:raw.Event) => dom.document.body appendChild simple
+		window.onload	= (_:Event) => document.body appendChild simple
 	}
 
-	def simple:raw.HTMLDivElement	=
+	def simple:HTMLDivElement	=
 			div(
 				"this is a div with a ",
 				a(
@@ -24,17 +25,17 @@ object Example {
 				" in it."
 			)
 	
-	def complex:raw.HTMLDivElement	=
+	def complex:HTMLDivElement	=
 			div(
 				className	= "test",
-				onclick		= (ev:raw.Event) => println("click"),
+				onclick		= (ev:Event) => println("click"),
 				"this is a div with a ",
 				a(
 					href = "https://www.scala-js.org/api/scalajs-dom/0.9.0/",
 					"link"
 				),
 				" in it.",
-				Vector[raw.Node](" ", "and", " ", "a", " ", "sequence of nodes", a()),
+				Vector[Node](" ", "and", " ", "a", " ", "sequence of nodes", a()),
 				fragment(" ", "and", " ", "another", " ", "sequence of nodes", a())
 			)
 }
