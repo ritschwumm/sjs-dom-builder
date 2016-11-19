@@ -35,6 +35,7 @@ object Example {
 					"link"
 				),
 				" in it.",
+				Vector(div(), div()),
 				Vector(" ", "and", " ", "a", " ", "sequence of nodes"),
 				a()
 			)
