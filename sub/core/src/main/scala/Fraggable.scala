@@ -27,7 +27,10 @@ object Fraggable {
 			}
 	
 	//------------------------------------------------------------------------------
-			
+	
+	def apply[T:Fraggable]:Fraggable[T]	=
+			implicitly[Fraggable[T]]
+		
 	def by[T](asNodeFunc:T=>raw.Node):Fraggable[T]	=
 			new Fraggable[T] {
 				def asNode(it:T):raw.Node = asNodeFunc(it)
@@ -37,6 +40,7 @@ object Fraggable {
 			implicitly[Fraggable[T]] asNode it
 }
 
+// BETTER use a Contravariant typeclass to keep this invariant
 trait Fraggable[-T] {
 	def asNode(it:T):raw.Node
 }

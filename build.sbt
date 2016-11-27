@@ -1,6 +1,6 @@
 inThisBuild(Seq(
 	organization	:= "de.djini",
-	version			:= "0.2.0",
+	version			:= "0.3.0",
 	
 	scalaVersion	:= "2.12.0",
 	scalacOptions	++= Seq(
@@ -17,7 +17,6 @@ inThisBuild(Seq(
 lazy val `sjs-dom-builder` =
 	(project in file("."))
 	.aggregate(
-		`sjs-dom-builder-macros`,
 		`sjs-dom-builder-core`,
 		`sjs-dom-builder-example`
 	)
@@ -27,8 +26,8 @@ lazy val `sjs-dom-builder` =
 		//publishLocal	:= {}
 	)
 	
-lazy val `sjs-dom-builder-macros`	=
-		(project in file("sub/macros"))
+lazy val `sjs-dom-builder-core`	=
+		(project in file("sub/core"))
 		.enablePlugins(
 			ScalaJSPlugin
 		)
@@ -39,16 +38,6 @@ lazy val `sjs-dom-builder-macros`	=
 				"org.scala-js"		%%%	"scalajs-dom"	% "0.9.1"				% "compile"
 			)
 		)
-		
-lazy val `sjs-dom-builder-core`	=
-		(project in file("sub/core"))
-		.enablePlugins(
-			ScalaJSPlugin
-		)
-		.dependsOn(
-			`sjs-dom-builder-macros`
-		)
-		.settings()
 		
 lazy val `sjs-dom-builder-example`	=
 		(project in file("sub/example"))
