@@ -1,6 +1,6 @@
 package sjs.dom.builder
 
-import scala.scalajs.js.annotation.JSExport
+import scala.scalajs.js.annotation._
 
 import org.scalajs.dom.document
 import org.scalajs.dom.window
@@ -8,10 +8,8 @@ import org.scalajs.dom.raw._
 
 import sjs.dom.builder.syntax._
 
-@JSExport
 object Example {
-	@JSExport
-	def main() {
+	def main():Unit	= {
 		window.onload	= (_:Event) => document.body appendChild simple
 	}
 
@@ -24,7 +22,7 @@ object Example {
 				),
 				" in it."
 			)
-	
+
 	def complex:HTMLDivElement	=
 			div(
 				className	= "test",

@@ -11,14 +11,14 @@ object Builder {
 class Builder[T] private () extends Dynamic {
 	def applyDynamic(name:String)(args:Any*):T	=
 			macro BuilderMacros.applyDynamic[T]
-	
+
 	def applyDynamicNamed(name:String)(args:(String,Any)*):T	=
 			macro BuilderMacros.applyDynamicNamed[T]
 }
 
 final class BuilderMacros(val c:Context) {
 	import c.universe._
-	
+
 	def applyDynamic[T](name:c.Tree)(args:Tree*)(implicit nodeTypeTag:c.WeakTypeTag[T]):c.Tree	= {
 		assertApply(name)
 		build[T](elementName, nodeTypeTag, args map { av =>
@@ -27,7 +27,7 @@ final class BuilderMacros(val c:Context) {
 			Right(av)
 		})
 	}
-	
+
 	def applyDynamicNamed[T](name:c.Tree)(args:Tree*)(implicit nodeTypeTag:c.WeakTypeTag[T]):c.Tree	= {
 		assertApply(name)
 		build[T](elementName, nodeTypeTag, args map { arg =>
@@ -37,19 +37,19 @@ final class BuilderMacros(val c:Context) {
 			else				Left(TermName(argName) -> av)
 		})
 	}
-	
+
 	// make sure the right method has been called
 	private def assertApply(name:c.Tree):Unit	= {
 		val Literal(Constant(methodName:String))	= name
 		if (methodName != "apply")	abort(s"unhandled applyDynamicNamed call to Builder member '${methodName}'")
 	}
-	
-	// find out whch element type to build by looking at the val the Builder was assigned to 
+
+	// find out whch element type to build by looking at the val the Builder was assigned to
 	private def elementName:String	= {
 		val Select(_, TermName(elementName))	= c.prefix.tree
 		elementName
 	}
-	
+
 	// build element with args of either property or child
 	private def build[T](elementName:String, nodeTypeTag:c.WeakTypeTag[T], args:Seq[Either[(TermName,c.Tree),c.Tree]]):c.Tree	= {
 		q"""{
@@ -63,6 +63,6 @@ final class BuilderMacros(val c:Context) {
 			el
 		}"""
 	}
-	
+
 	private def abort(msg:String):Nothing	= c.abort(c.enclosingPosition, msg)
 }
