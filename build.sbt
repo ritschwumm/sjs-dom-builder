@@ -1,6 +1,6 @@
 inThisBuild(Seq(
 	organization	:= "de.djini",
-	version			:= "0.5.0",
+	version			:= "0.6.0",
 
 	scalaVersion	:= "2.13.1",
 	scalacOptions	++= Seq(
@@ -13,10 +13,10 @@ inThisBuild(Seq(
 ))
 
 lazy val noTestSettings	=
-		Seq(
-			test		:= {},
-			testQuick	:= {}
-		)
+	Seq(
+		test		:= {},
+		testQuick	:= {}
+	)
 
 lazy val `sjs-dom-builder` =
 	(project in file("."))
@@ -31,32 +31,32 @@ lazy val `sjs-dom-builder` =
 	)
 
 lazy val `sjs-dom-builder-core`	=
-		(project in file("modules/core"))
-		.enablePlugins(
-			ScalaJSPlugin
+	(project in file("modules/core"))
+	.enablePlugins(
+		ScalaJSPlugin
+	)
+	.dependsOn()
+	.settings(
+		noTestSettings,
+		libraryDependencies ++= Seq(
+			"org.scala-lang"	%	"scala-reflect"	% scalaVersion.value	% "compile",
+			"org.scala-js"		%%%	"scalajs-dom"	% "0.9.8"				% "compile"
 		)
-		.dependsOn()
-		.settings(
-			noTestSettings,
-			libraryDependencies ++= Seq(
-				"org.scala-lang"	%	"scala-reflect"	% scalaVersion.value	% "compile",
-				"org.scala-js"		%%%	"scalajs-dom"	% "0.9.8"				% "compile"
-			)
-		)
+	)
 
 lazy val `sjs-dom-builder-example`	=
-		(project in file("modules/example"))
-		.enablePlugins(
-			ScalaJSPlugin
-		)
-		.dependsOn(
-			`sjs-dom-builder-core`
-		)
-		.settings(
-			noTestSettings
-		)
+	(project in file("modules/example"))
+	.enablePlugins(
+		ScalaJSPlugin
+	)
+	.dependsOn(
+		`sjs-dom-builder-core`
+	)
+	.settings(
+		noTestSettings
+	)
 
 TaskKey[Seq[File]]("bundle")	:=
-		Vector(
-			(`sjs-dom-builder-example` / Compile / fastOptJS).value.data
-		)
+	Vector(
+		(`sjs-dom-builder-example` / Compile / fastOptJS).value.data
+	)
