@@ -1,6 +1,6 @@
 inThisBuild(Seq(
 	organization	:= "de.djini",
-	version			:= "0.6.0",
+	version			:= "0.7.0",
 
 	scalaVersion	:= "2.13.1",
 	scalacOptions	++= Seq(
@@ -40,7 +40,7 @@ lazy val `sjs-dom-builder-core`	=
 		noTestSettings,
 		libraryDependencies ++= Seq(
 			"org.scala-lang"	%	"scala-reflect"	% scalaVersion.value	% "compile",
-			"org.scala-js"		%%%	"scalajs-dom"	% "0.9.8"				% "compile"
+			"org.scala-js"		%%%	"scalajs-dom"	% "1.0.0"				% "compile"
 		)
 	)
 
