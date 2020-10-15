@@ -1,13 +1,14 @@
 inThisBuild(Seq(
 	organization	:= "de.djini",
-	version			:= "0.8.0",
+	version			:= "0.9.0",
 
-	scalaVersion	:= "2.13.2",
+	scalaVersion	:= "2.13.3",
 	scalacOptions	++= Seq(
 		"-feature",
 		"-deprecation",
 		"-unchecked",
-		"-Xfatal-warnings"
+		"-Werror",
+		"-Xlint",
 		// "-Ymacro-debug-lite"
 	)
 ))

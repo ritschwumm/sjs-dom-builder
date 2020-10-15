@@ -1,7 +1,5 @@
 package sjs.dom.builder
 
-import scala.scalajs.js.annotation._
-
 import org.scalajs.dom.document
 import org.scalajs.dom.window
 import org.scalajs.dom.raw._
