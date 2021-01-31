@@ -30,25 +30,35 @@ final class BuilderMacros(val c:Context) {
 
 	def applyDynamicNamed[T](name:c.Tree)(args:Tree*)(implicit nodeTypeTag:c.WeakTypeTag[T]):c.Tree	= {
 		assertApply(name)
-		build[T](elementName, nodeTypeTag, args map { arg =>
-			val q"scala.Tuple2.apply[$kt,$at]($kv, $av)" = arg
-			val Literal(Constant(argName:String)) = kv
-			if (argName == "")	Right(av)
-			else				Left(TermName(argName) -> av)
+		build[T](elementName, nodeTypeTag, args map {
+			case q"scala.Tuple2.apply[$kt,$at]($kv, $av)" =>
+				kv match {
+					case Literal(Constant(argName:String)) =>
+						if (argName == "")	Right(av)
+						else				Left(TermName(argName) -> av)
+					case x	=>
+						abort(s"unexpected applyDynamicNamed syntax: ${x.toString}")
+				}
+			case x	=>
+				abort(s"unexpected applyDynamicNamed syntax: ${x.toString}")
 		})
 	}
 
 	// make sure the right method has been called
-	private def assertApply(name:c.Tree):Unit	= {
-		val Literal(Constant(methodName:String))	= name
-		if (methodName != "apply")	abort(s"unhandled applyDynamicNamed call to Builder member '${methodName}'")
-	}
+	private def assertApply(name:c.Tree):Unit	=
+		name match {
+			case Literal(Constant(methodName:String))	=>
+				if (methodName != "apply")	abort(s"unhandled applyDynamicNamed call to Builder member '${methodName}'")
+			case x	=>
+				abort(s"unexpected assertApply syntax: ${x.toString}")
+		}
 
-	// find out whch element type to build by looking at the val the Builder was assigned to
-	private def elementName:String	= {
-		val Select(_, TermName(elementName))	= c.prefix.tree
-		elementName
-	}
+	// find out which element type to build by looking at the val the Builder was assigned to
+	private def elementName:String	=
+		c.prefix.tree match {
+			case Select(_, TermName(elementName))	=> elementName
+			case x	=> abort(s"unexpected elementName syntax: ${x.toString}")
+		}
 
 	// build element with args of either property or child
 	private def build[T](elementName:String, nodeTypeTag:c.WeakTypeTag[T], args:Seq[Either[(TermName,c.Tree),c.Tree]]):c.Tree	= {

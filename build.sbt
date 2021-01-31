@@ -1,8 +1,10 @@
+Global / onChangedBuildSource := ReloadOnSourceChanges
+
 inThisBuild(Seq(
 	organization	:= "de.djini",
-	version			:= "0.10.0",
+	version			:= "0.11.0",
 
-	scalaVersion	:= "2.13.3",
+	scalaVersion	:= "2.13.4",
 	scalacOptions	++= Seq(
 		"-feature",
 		"-deprecation",
@@ -54,7 +56,9 @@ lazy val `sjs-dom-builder-example`	=
 		`sjs-dom-builder-core`
 	)
 	.settings(
-		noTestSettings
+		noTestSettings,
+		// automatically start on import
+		scalaJSUseMainModuleInitializer := true,
 	)
 
 TaskKey[Seq[File]]("bundle")	:=
