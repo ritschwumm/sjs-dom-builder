@@ -1,8 +1,6 @@
 package sjs.dom.builder
 
-import org.scalajs.dom.document
-import org.scalajs.dom.window
-import org.scalajs.dom.raw._
+import org.scalajs.dom._
 
 import sjs.dom.builder.syntax._
 

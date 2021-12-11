@@ -2,17 +2,20 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 inThisBuild(Seq(
 	organization	:= "de.djini",
-	version			:= "0.11.0",
+	version			:= "0.12.0",
 
-	scalaVersion	:= "2.13.4",
+	scalaVersion	:= "2.13.7",
 	scalacOptions	++= Seq(
 		"-feature",
 		"-deprecation",
 		"-unchecked",
 		"-Werror",
 		"-Xlint",
+		"-Xsource:3",
 		// "-Ymacro-debug-lite"
-	)
+	),
+
+	versionScheme	:= Some("early-semver"),
 ))
 
 lazy val noTestSettings	=
@@ -43,7 +46,7 @@ lazy val `sjs-dom-builder-core`	=
 		noTestSettings,
 		libraryDependencies ++= Seq(
 			"org.scala-lang"	%	"scala-reflect"	% scalaVersion.value	% "compile",
-			"org.scala-js"		%%%	"scalajs-dom"	% "1.1.0"				% "compile"
+			"org.scala-js"		%%%	"scalajs-dom"	% "2.0.0"				% "compile"
 		)
 	)
 

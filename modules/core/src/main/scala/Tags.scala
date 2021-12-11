@@ -1,6 +1,6 @@
 package sjs.dom.builder
 
-import org.scalajs.dom.raw._
+import org.scalajs.dom._
 
 trait Tags {
 	val a			= Builder[HTMLAnchorElement]
